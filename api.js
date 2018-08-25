@@ -8,7 +8,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app
     .get('/preferences/:id', async (req, res) => {
-        const preferences = await db.get('SELECT * FROM Preferences WHERE id = ?', req.params.id);
+        console.log(req.params.id);
+        const preferences = await db.all('SELECT * FROM Preferences WHERE user = ?', req.params.id);
+        console.log(preferences);
         res.send(preferences);
     })
     .post('/preferences',(req, res) => {
